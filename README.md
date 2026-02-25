@@ -42,3 +42,29 @@ npm link @authcore/commons
 ## Versioning
 
 When AuthCore UC API or types change, update this package and bump version; upgrade the dependency in htyadmin and htymusic.
+
+架构关系示意
+
+```mermaid
+flowchart LR
+  subgraph AuthCore [AuthCore Rust]
+    UC[UC API]
+    Models[htyuc_models / htycommons]
+  end
+
+  subgraph AuthCoreJS [AuthCoreJS]
+    Commons[commons lib]
+  end
+
+  subgraph Frontends [Frontends]
+    Htyadmin[htyadmin]
+    Htymusic[htymusic]
+  end
+
+  Models -->|"JSON 契约"| UC
+  UC -->|"类型对齐"| Commons
+  Commons -->|"import"| Htyadmin
+  Commons -->|"import"| Htymusic
+  Htyadmin -->|"API 调用"| UC
+  Htymusic -->|"API 调用"| UC
+```
