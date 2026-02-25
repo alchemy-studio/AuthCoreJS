@@ -1,6 +1,6 @@
 # @authcore/commons
 
-Shared TypeScript types aligned with [AuthCore](https://github.com/huiwing-migration/AuthCore) (Rust) UC API. Used by **htyadmin** and **htymusic** frontends.
+Shared TypeScript types aligned with [AuthCore](https://github.com/alchemy-studio/authcore) (Rust) UC API. Used by **htyadmin** and **htymusic** frontends.
 
 ## Alignment
 
