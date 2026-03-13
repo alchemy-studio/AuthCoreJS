@@ -29,6 +29,10 @@ export interface PagedQueryParam {
   page_size: number;
 }
 
+export interface ClassQueryParam extends QueryParam {
+  hty_ids?: string[];
+}
+
 export interface HtyStyle {
   backgroundColor?: string;
 }
