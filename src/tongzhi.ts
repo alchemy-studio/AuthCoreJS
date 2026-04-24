@@ -1,5 +1,6 @@
 /**
- * Aligned with AuthCore htyuc_models: HtyTongzhi, CommonTongzhiContent; NotifyTypes used by both frontends
+ * Aligned with AuthCore htyuc_models: HtyTongzhi, CommonTongzhiContent.
+ * Notify types / domain payload keys live in application repos; flat JSON maps to Rust PushInfo (envelope + extra).
  */
 
 export interface TongzhiContent {
@@ -16,6 +17,7 @@ export interface TongzhiContent {
   daka_start_date?: Date | string;
   daka_duration_days?: number;
   qumu_sections?: string[];
+  clazz_id?: string;
 }
 
 export enum TongzhiStatuses {
@@ -32,37 +34,11 @@ export type TongzhiQueryParam = {
   user_id?: string;
 };
 
-export enum NotifyTypes {
-  TeacherRegister = 'teacher_register',
-  StudentRegister = 'student_register',
-  RejectRegister = 'reject_register',
-  StudentRegisterApproved = 'student_register_success',
-  TeacherRegisterApproved = 'teacher_register_success',
-  TeacherCommentPiyue = 'teacher_comment_piyue',
-  StudentCommentPiyue = 'student_comment_piyue',
-  JihuaCreate = 'create_jihua',
-  JihuaUpdate = 'update_jihua',
-  JihuaDelete = 'delete_jihua',
-  LianxiCreate = 'create_lianxi',
-  LianxiDelete = 'delete_lianxi',
-  PiyueCreate = 'create_piyue',
-  TeacherCommentJihua = 'teacher_comment_jihua',
-  StudentCommentJihua = 'student_comment_jihua',
-  TeacherCommentDaka = 'teacher_comment_daka',
-  StudentCommentDaka = 'student_comment_daka',
-  DakaCreate = 'create_daka',
-  DakaUpdate = 'update_daka',
-  DakaDelete = 'delete_daka',
-  ResourceNoteGroupCreate = 'create_resource_note_group',
-  KechengCreateOrUpdate = 'create_or_update_kecheng',
-  KechengDelete = 'delete_kecheng',
-  TeacherCommentKecheng = 'teacher_comment_kecheng',
-}
-
 export interface NotifyParam {
   hty_id: string;
   hty_id2?: string;
-  notify_type: NotifyTypes;
+  /** Logical channel id (string union enforced in each app via local enum if desired). */
+  notify_type: string;
   jihua_id?: string;
   daka_id?: string;
   piyue_id?: string;
@@ -79,8 +55,8 @@ export interface NotifyParam {
   qumu_section_name?: string;
   first?: string;
   remark?: string;
-  kecheng_id?: string;
-  kecheng_name?: string;
+  clazz_id?: string;
+  clazz_name?: string;
   student_name?: string;
   teacher_name?: string;
   start_from?: string;
@@ -91,7 +67,7 @@ export interface NotifyParam {
 export interface Tongzhi {
   tongzhi_id: string;
   app_id: string;
-  tongzhi_type: NotifyTypes | string;
+  tongzhi_type: string;
   tongzhi_status: TongzhiStatuses;
   send_from: string;
   send_to: string;
