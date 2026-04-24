@@ -1,24 +1,25 @@
 /**
- * Aligned with AuthCore htyuc_models: HtyTongzhi, CommonTongzhiContent.
- * Notify types / domain payload keys live in application repos; flat JSON maps to Rust PushInfo (envelope + extra).
+ * UC / htyuc_models 对齐的轻量 DTO：无业务枚举、无通知正文字段表。
+ * 扁平 Json 与 Rust PushInfo（信封 + serde flatten extra）一致。
  */
 
-export interface TongzhiContent {
-  to_user: string;
-  from_user: string;
-  created_at: Date | string;
-  content: string;
-  jihua_id?: string;
-  jihua_start_from?: Date | string;
-  jihua_end_at?: Date | string;
-  piyue_id?: string;
-  lianxi_id?: string;
-  daka_id?: string;
-  daka_start_date?: Date | string;
-  daka_duration_days?: number;
-  qumu_sections?: string[];
-  clazz_id?: string;
+/** 通知请求体：固定信封字段 + 任意扁平键（服务端落入 PushInfo.extra） */
+export interface NotifyParamEnvelope {
+  hty_id: string;
+  hty_id2?: string;
+  notify_type: string;
+  comment_id?: string;
+  comment_time?: string;
+  comment_msg?: string;
+  serial?: string;
+  to_role_id?: string;
+  ref_id?: string;
+  ref_type?: string;
+  from_app_id?: string;
 }
+
+export type NotifyParam = NotifyParamEnvelope &
+  Record<string, string | number | boolean | undefined | null>;
 
 export enum TongzhiStatuses {
   Unread = 'Unread',
@@ -34,36 +35,7 @@ export type TongzhiQueryParam = {
   user_id?: string;
 };
 
-export interface NotifyParam {
-  hty_id: string;
-  hty_id2?: string;
-  /** Logical channel id (string union enforced in each app via local enum if desired). */
-  notify_type: string;
-  jihua_id?: string;
-  daka_id?: string;
-  piyue_id?: string;
-  lianxi_id?: string;
-  comment_id?: string;
-  comment_time?: string;
-  comment_msg?: string;
-  serial?: string;
-  to_role_id?: string;
-  resource_note_group_id?: string;
-  ref_id?: string;
-  ref_type?: string;
-  qumu_name?: string;
-  qumu_section_name?: string;
-  first?: string;
-  remark?: string;
-  clazz_id?: string;
-  clazz_name?: string;
-  student_name?: string;
-  teacher_name?: string;
-  start_from?: string;
-  end_by?: string;
-  from_app_id?: string;
-}
-
+/** 列表/详情 DTO；content、push_info 由业务仓库收窄类型 */
 export interface Tongzhi {
   tongzhi_id: string;
   app_id: string;
@@ -72,7 +44,7 @@ export interface Tongzhi {
   send_from: string;
   send_to: string;
   created_at: Date | string;
-  content: TongzhiContent;
+  content: Record<string, unknown>;
   meta: { val: string };
-  push_info?: unknown;
+  push_info?: Record<string, unknown>;
 }
