@@ -1,6 +1,6 @@
 /**
  * Aligned with AuthCore htyuc_models: HtyUser, UserAppInfo (HtyUserApp), UserSetting,
- * MetaUserAppInfo (WeixinUserInfo), TeacherInfo, StudentInfo, UserInfoRole, ReqRegister (HtyApplyUser)
+ * MetaUserAppInfo (WeixinUserInfo), ExtraInfo, ExtraInfo2, UserInfoRole, ReqRegister (HtyApplyUser)
  */
 
 import type { MultiVals } from './common';
@@ -20,14 +20,14 @@ export interface WeixinUserInfo {
   mother_job?: string;
 }
 
-export interface TeacherInfo {
+export interface ExtraInfo {
   academic?: string;
   experience?: string;
   graduated_from?: string;
   subjects?: string[];
 }
 
-export interface StudentInfo {
+export interface ExtraInfo2 {
   experience?: string;
 }
 
@@ -69,8 +69,8 @@ export interface HtyUserApp {
   password: string;
   meta?: WeixinUserInfo | null;
   created_at?: string | null;
-  teacher_info?: TeacherInfo | null;
-  student_info?: StudentInfo | null;
+  extra_info?: ExtraInfo | null;
+  extra_info2?: ExtraInfo2 | null;
   reject_reason?: string | null;
   needs_refresh?: boolean | null;
   avatar_url?: string | null;
@@ -89,8 +89,8 @@ export interface HtyApplyUser {
   mobile?: string;
   role: string;
   meta: WeixinUserInfo;
-  teacher_info?: { academic?: string; experience?: string };
-  student_info?: { experience?: string };
+  extra_info?: { academic?: string; experience?: string };
+  extra_info2?: { experience?: string };
   teacher_id?: string;
   enabled?: boolean;
 }
