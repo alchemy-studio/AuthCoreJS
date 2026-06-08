@@ -25,6 +25,7 @@ export enum TaskTypes {
   AI_SCORE = 'AI_SCORE',
   WATERMARK = 'WATERMARK',
   VIDEO_COMPRESSION = 'VIDEO_COMPRESSION',
+  /** @deprecated 勿新建；使用 CONVERT_AUDIO_FILE + AI_SCORE。见 plan_skills/projects/htyproc-task-decoupling/任务类型解耦原则.md */
   AUDIO_FILE_AI_SCORE = 'AUDIO_FILE_AI_SCORE',
   IMAGE_FORM_COMPRESS = 'IMAGE_FORM_COMPRESS',
 }
