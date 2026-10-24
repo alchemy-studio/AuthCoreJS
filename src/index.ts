@@ -15,3 +15,4 @@ export * from './group';
 export * from './task';
 export * from './resource';
 export * from './template';
+export * from './sso-client';

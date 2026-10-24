@@ -18,18 +18,6 @@ export enum TaskStatuses {
   UNKNOWN = 'UNKNOWN',
 }
 
-export enum TaskTypes {
-  NOOP = 'NOOP',
-  UPLOAD_PICTURE = 'UPLOAD_PICTURE',
-  CONVERT_AUDIO_FILE = 'CONVERT_AUDIO_FILE',
-  AI_SCORE = 'AI_SCORE',
-  WATERMARK = 'WATERMARK',
-  VIDEO_COMPRESSION = 'VIDEO_COMPRESSION',
-  /** @deprecated 勿新建；使用 CONVERT_AUDIO_FILE + AI_SCORE。见 plan_skills/projects/htyproc-task-decoupling/任务类型解耦原则.md */
-  AUDIO_FILE_AI_SCORE = 'AUDIO_FILE_AI_SCORE',
-  IMAGE_FORM_COMPRESS = 'IMAGE_FORM_COMPRESS',
-}
-
 export interface TaskMeta {
   media_id?: string;
   data?: KVPair;
@@ -37,7 +25,7 @@ export interface TaskMeta {
 
 export interface CommonTask {
   task_id?: string;
-  task_type: TaskTypes | string;
+  task_type: string;
   task_result?: KVPair;
   task_status?: TaskStatuses | string;
   task_meta?: TaskMeta;
